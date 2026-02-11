@@ -22,6 +22,8 @@ class read_card_from_index_test(unittest.TestCase):
         self.assertEqual(read_card_from_index(10), "10 of Spades")
         self.assertEqual(read_card_from_index(13+6), "6 of Hearts")
 
+    #TODO: Tests for unexpected inputs
+
 class calculate_points_test(unittest.TestCase):
     def hands_test(self): #Test if various hands returns the expected amount of points
         self.assertEqual(calculate_points([26]), 10) #King of hearts
@@ -32,3 +34,5 @@ class calculate_points_test(unittest.TestCase):
         self.assertEqual(calculate_points([8, 14]), 19) #8 and one Ace
         self.assertEqual(calculate_points([8, 14, 41]), 21) #Drawing a 2 should take the score to 21
         self.assertEqual(calculate_points([8, 14, 42]), 12) #Drawing a 3 should take the score to 12, since now the Ace counts as 1 point
+
+    #TODO: Tests for unexpected inputs
