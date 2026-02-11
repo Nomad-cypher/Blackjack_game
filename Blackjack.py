@@ -96,14 +96,28 @@ while(gameRunning):
     # Inform player of dealer's shown card
     print("The dealer has a", read_card_from_index(dealerHand[0]), "and 1 card face-down\n")
 
+    # Player's turn
     while playerTurn:
-        # Show the player their hand and points
+        # Show the player their hand
         print("Cards in your hand:")
         for i in playerHand:
             print(read_card_from_index(i))
-        print("Points")
-        print(calculate_points(playerHand))
-        print("")
+        
+        # Calculate and show the player their points
+        playerPoints = calculate_points(playerHand)
+        print("You have", playerPoints, "points")
+
+        # Lose immidietly if the player busts
+        if playerPoints > 21:
+            time.sleep(1.5) # Letting the player soak for a moment
+            print("Bust!")
+            time.sleep(2)
+            print("You lose")
+            time.sleep(2)
+            playerTurn = False
+            break
+        else:
+            print("")
         
         # Ask player whether to hit or stand
         print("Your options are:")
@@ -122,24 +136,43 @@ while(gameRunning):
             print("Sorry, you are not allowed to do that\n")
     
     # Show second dealer card to player
-    print("The dealer turns their second card face-up, it is a", read_card_from_index(dealerHand[1]))
+    print("The dealer turns their second card face-up, it is a", read_card_from_index(dealerHand[1])) if dealerTurn else None
 
     # Dealer's turn
     while dealerTurn:
         dealerPoints = calculate_points(dealerHand)
-        print("The dealer has", dealerPoints, "points\n")
+        print("The dealer has", dealerPoints, "points")
 
         time.sleep(1)
 
         if dealerPoints < 17:
             dealerHand.append(deck.pop())
             print("The dealer draws a card, it is a", read_card_from_index(dealerHand[-1]))
+            #time.sleep(1)
+        elif dealerPoints > 21:
+            #time.sleep(1)
+            print("The dealer has busted!")
+            time.sleep(2)
+            print("You win!")
+            time.sleep(2)
+            dealerTurn = False
         else:
             print("The dealer stands")
+            time.sleep(1)
             dealerTurn = False
+    
+    # If neither player nor dealer has busted, compare points and announce the winner
+    if playerPoints <= 21 and dealerPoints <= 21:
+        print("You have", playerPoints, "points, the dealer has", dealerPoints, "points")
+        if playerPoints > dealerPoints:
+            print("You win!")
+        elif playerPoints == dealerPoints:
+            print("Push! It's a draw")
+        else:
+            print("You lose")
 
     # Ask to play again
-    print("Play again?")
+    print("\nPlay again?")
     choice = input()
     if choice == "y":
         reset_game()
