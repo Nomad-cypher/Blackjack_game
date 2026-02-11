@@ -21,8 +21,7 @@ def read_card_from_index(index): #Reads card and suit value from its index
     elif 13*3+1 <= index <= 13*4:
         suit = "Diamonds"
     else:
-        #TODO: implement throwing an error
-        pass
+        raise Exception("Out of range or not a positive integer")
     
     # Determine rank
     if index%13 == 1:
