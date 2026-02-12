@@ -7,7 +7,11 @@ def reset_game(): #Resets hands and shuffles the deck
     random.shuffle(deck)
 
 def read_card_from_index(index): #Reads card and suit value from its index
-    # Init vraiables
+    # Check that the input is in integer
+    if type(index) not in [int]:
+        raise TypeError("Input bust be an integer")
+
+    # Initialize variables
     rank = ""
     suit = ""
 
@@ -21,7 +25,7 @@ def read_card_from_index(index): #Reads card and suit value from its index
     elif 13*3+1 <= index <= 13*4:
         suit = "Diamonds"
     else:
-        raise Exception("Out of range or not a positive integer")
+        raise ValueError("Out of range")
     
     # Determine rank
     if index%13 == 1:
@@ -39,6 +43,17 @@ def read_card_from_index(index): #Reads card and suit value from its index
     return rank + " of " + suit
 
 def calculate_points(hand): #Calculate how many points in a hand
+    # Check that input is a list
+    if type(hand) not in [list]:
+        raise TypeError("Input must be a list of integers")
+    
+    # Check that each element is an integer in the range 1-52
+    for i in hand:
+        if type(i) not in [int]:
+            raise TypeError("Hand contains elements that are not integers")
+        if i > 52 or i < 1:
+            raise ValueError("Card indecies must be between 1 and 52")
+        
     # Reduce card indecies to values
     hand = list(map(lambda x: x % 13, hand))
     hand = list(map(lambda x: x + 13 if x == 0 else x, hand)) #Handle kings
@@ -179,12 +194,3 @@ if __name__ == "__main__":
             playerTurn = True
         else:
             gameRunning = False
-'''
-#testing stuff (to be deleted later)
-print(deck)
-print(len(deck))
-#print(read_card_from_index(10))
-print(playerHand)
-print(len(playerHand))
-calculate_points(playerHand)
-'''
