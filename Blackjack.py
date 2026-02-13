@@ -82,14 +82,14 @@ def calculate_points(hand): #Calculate how many points in a hand
 import random
 import time
 
-# Create deck hands and shuffle the deck
+# Create deck and hands and shuffle the deck
 playerHand = []
 dealerHand = []
 deck = []
 reset_game()
 
 # Create hands for player and dealer
-#dealerHandVisible = []
+#dealerHandVisible = [] # This is as relic for the code archaeologists to discover :)
 
 # Various other variables for handling the game
 playerTurn = True
