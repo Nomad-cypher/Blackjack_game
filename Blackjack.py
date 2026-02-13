@@ -55,9 +55,9 @@ def calculate_points(hand): #Calculate how many points in a hand
             raise ValueError("Card indecies must be between 1 and 52")
         
     # Reduce card indecies to values
-    hand = list(map(lambda x: x % 13, hand))
+    hand = list(map(lambda x: x % 13, hand)) #Clear the suit
     hand = list(map(lambda x: x + 13 if x == 0 else x, hand)) #Handle kings
-    hand = list(map(lambda x: min(10,x), hand))
+    hand = list(map(lambda x: min(10,x), hand)) #Face cards are worth 10 points
     #print(hand) #debug
 
     # Count number of aces in hand
